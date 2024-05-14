@@ -1,0 +1,32 @@
+function a_encrypt(plaintext, key):
+    # 使用 LFSR 生成密鑰流
+    keystream := lfsr(key, [1, 0, 0, 0, 1, 1, 1, 0, 1], plaintext的長度)  
+    ciphertext := []  # 初始化密文列表為空
+    # 對每個明文字符和密鑰流進行異或運算，並轉換為字符形式
+    for i 從 0 到 plaintext的長度 - 1:  
+        ciphertext[i] := chr(ord(plaintext[i]) XOR keystream[i])  
+    返回將ciphertext的所有元素連接成一個字符串  # 將所有密文字符連接成一個字符串並返回
+
+function a_decrypt(ciphertext, key):
+    keystream := lfsr(key, [1, 0, 0, 0, 1, 1, 1, 0, 1], ciphertext的長度)  
+    plaintext := []  
+    for i 從 0 到 ciphertext的長度 - 1:  
+    # 對每個密文字符和密鑰流進行異或運算，並轉換為字符形式
+        plaintext[i] := chr(ord(ciphertext[i]) XOR keystream[i])  
+    返回將plaintext的所有元素連接成一個字符串  # 將所有明文字符連接成一個字符串並返回
+
+function count_combinations(shuffle_function, iterations):
+    # 初始化一個空字典來存儲不同牌組的組合數量
+    counts = {}
+    # 進行指定次數的迭代
+    for _ in range(iterations):
+        # 使用給定的洗牌函數對牌組進行洗牌
+        shuffled_cards = shuffle_function([1, 2, 3, 4])
+        # 如果已經有相同的牌組出現過，則將其組合數加1；否則，初始化為1
+        if shuffled_cards 已存在於 counts:
+            counts[shuffled_cards] = counts[shuffled_cards] + 1
+        else:
+            counts[shuffled_cards] = 1
+    # 返回存儲不同牌組的組合數量的字典
+    return counts
+
